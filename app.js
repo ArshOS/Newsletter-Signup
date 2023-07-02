@@ -8,5 +8,19 @@ const port = 3000;
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.use(express.static("public")); // Put all resources into this folder. 
+
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + "/signup.html");
+})
+
+app.post('/', function(req, res) {
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var email = req.body.email;
+
+    console.log("Details : " + firstName + " " + lastName + " " + email);
+})
+
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
